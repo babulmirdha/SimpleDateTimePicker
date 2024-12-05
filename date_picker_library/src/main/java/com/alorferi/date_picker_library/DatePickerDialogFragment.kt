@@ -1,11 +1,12 @@
-package com.ushalab.afcommonlibrary.utils
+package com.alorferi.date_picker_library
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.babulmirdha.simple_date_picker.databinding.FragmentDialogDatePickerBinding
+import com.alorferi.date_picker_library.databinding.FragmentDialogDatePickerBinding
+
 
 import java.util.*
 

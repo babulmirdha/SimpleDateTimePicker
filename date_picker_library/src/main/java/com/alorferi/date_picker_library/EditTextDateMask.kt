@@ -1,4 +1,4 @@
-package com.ushalab.afcommonlibrary.customviews
+package com.alorferi.date_picker_library
 
 import android.graphics.Color
 import android.text.Editable
@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.ushalab.afcommonlibrary.utils.DatePickerDialogFragment
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
