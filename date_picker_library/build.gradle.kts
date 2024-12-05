@@ -48,6 +48,7 @@ dependencies {
 
 // Configure Maven publication
 publishing {
+//run commend ./gradlew publishToMavenLocal to publish library in local maven
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.alorferi"

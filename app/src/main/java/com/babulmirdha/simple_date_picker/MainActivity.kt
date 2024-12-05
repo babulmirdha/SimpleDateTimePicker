@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
-    private var mDobEditTextDateMask: com.alorferi.date_picker_library.EditTextDateMask? = null
+    private var mDobEditTextDateMask: EditTextDateMask? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val cal = Calendar.getInstance()
-        mDobEditTextDateMask = com.alorferi.date_picker_library.EditTextDateMask(
+        mDobEditTextDateMask = EditTextDateMask(
             this,
             binding.dobEditText,
             binding.datePickerButton,
