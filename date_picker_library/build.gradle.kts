@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    `maven-publish` // Add this plugin
 }
 
 android {
@@ -9,7 +10,6 @@ android {
 
     defaultConfig {
         minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -44,4 +44,25 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.kotlinx.datetime)
+}
+
+// Configure Maven publication
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.alorferi"
+            artifactId = "date_picker_library"
+            version = "1.0.0"
+
+            // Include the Android AAR artifact
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = uri("${buildDir}/repo") // Local Maven repository
+        }
+    }
 }
