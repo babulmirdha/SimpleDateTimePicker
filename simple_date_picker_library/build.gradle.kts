@@ -1,20 +1,17 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    `maven-publish` // Add this plugin
 }
 
 android {
-    namespace = "com.babulmirdha.simple_date_picker"
-    compileSdk = 35
+    namespace = "com.babulmirdha.simple_date_picker_library"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.babulmirdha.simple_date_picker"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -40,15 +37,33 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    implementation(project(":simple_date_picker_library"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.kotlinx.datetime)
+}
 
+// Configure Maven publication
+publishing {
+//run commend "./gradlew publishToMavenLocal" at terminal to publish library in local maven
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.babulmirdha"
+            artifactId = "simple_date_picker_library"
+            version = "1.0.0"
+
+            // Include the Android AAR artifact
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = uri("${buildDir}/repo") // Local Maven repository
+        }
+    }
 }

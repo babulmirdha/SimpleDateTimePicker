@@ -6,14 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.babulmirdha.simple_date_picker.databinding.ActivityMainBinding
-import com.ushalab.afcommonlibrary.customviews.EditTextDateMask
+import com.alorferi.date_picker_library.DateMaskEditText
+import com.alorferi.date_picker_library.DatePickerDialogFragment
+import com.alorferi.date_picker_library.DateTimeUtils
 import java.util.Calendar
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
-    private var mDobEditTextDateMask: EditTextDateMask? = null
+    private var mDobEditTextDateMask: DateMaskEditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         val cal = Calendar.getInstance()
-        mDobEditTextDateMask = EditTextDateMask(this, binding.dobEditText, binding.datePickerButton, cal.time)
+        mDobEditTextDateMask = DateMaskEditText(
+            this,
+            binding.dobEditText,
+            binding.datePickerButton,
+            cal.time
+        )
+
+        mDobEditTextDateMask?.setOnDatePickListener(object :
+            DatePickerDialogFragment.OnDatePickerListener {
+            override fun onPickDate(date: Date?) {
+                 binding.resultTextView.text =  DateTimeUtils.getDifference(this@MainActivity,date,cal.time)
+            }
+        })
     }
 
 }

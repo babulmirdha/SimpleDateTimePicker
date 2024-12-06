@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pick_a_date">Pick a date</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="format_years_months_days">%s Y %s M %s D %s</string>
+    <string name="format_days">%s days %s</string>
+    <string name="past">ago</string>
+    <string name="future">later</string>
+    <string name="format_months_days">%s M %s D %s</string>
+</resources>
