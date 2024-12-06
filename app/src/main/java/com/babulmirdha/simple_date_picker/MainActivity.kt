@@ -37,7 +37,8 @@ class MainActivity : AppCompatActivity() {
             this,
             binding.dobEditText,
             binding.datePickerButton,
-            cal.time
+            cal.time,
+            getString(R.string.select_date)
         )
 
         mDobEditTextDateMask?.setOnDatePickListener(object :

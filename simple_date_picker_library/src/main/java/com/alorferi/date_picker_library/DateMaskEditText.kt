@@ -17,6 +17,7 @@ import java.util.Locale
 
 class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListener {
 
+    private var mDatePickerTitle: String? = null
     private val mddMMyyyyDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
     private var current = ""
     private val ddmmyyyy = "DDMMYYYY"
@@ -55,21 +56,25 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
         activity: AppCompatActivity,
         dateEditText: EditText,
         datePickerButton: ImageButton?,
-        date: Date
+        date: Date,
+        datePickerTitle:String? = null
     ) {
-        initEditText(dateEditText, date, activity, datePickerButton)
+        initEditText(dateEditText, date, activity, datePickerButton, datePickerTitle)
     }
 
     private fun initEditText(
         dateEditText: EditText,
         date: Date? = null,
         fragmentOrActivity: Any? = null,
-        datePickerButton: ImageButton? = null
+        datePickerButton: ImageButton? = null,
+        datePickerTitle:String? = null
     ) {
         dateEditText.hint = "DD/MM/YYYY"
         this.mDateEditText = dateEditText
         this.mDateEditText?.addTextChangedListener(this)
         date?.let { this.mDateEditText?.setText(mddMMyyyyDateFormat.format(date)) }
+
+        this.mDatePickerTitle = datePickerTitle
 
         datePickerButton?.setOnClickListener {
             when (fragmentOrActivity) {
@@ -80,8 +85,7 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
     }
 
     private fun showDatePickerDialog(fragment: Fragment) {
-        val hint = mDateEditText?.hint.toString()
-        DatePickerDialogFragment.newInstance(getDate(), hint).apply {
+        DatePickerDialogFragment.newInstance(getDate(), mDatePickerTitle).apply {
             setDatePickerListener(this@DateMaskEditText)
             show(fragment.requireFragmentManager(), "datePicker")
         }
@@ -89,7 +93,7 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
 
     private fun showDatePickerDialog(activity: AppCompatActivity) {
         val hint = mDateEditText?.hint.toString()
-        DatePickerDialogFragment.newInstance(getDate(), hint).apply {
+        DatePickerDialogFragment.newInstance(getDate(), mDatePickerTitle ).apply {
             setDatePickerListener(this@DateMaskEditText)
             show(activity.supportFragmentManager, "datePicker")
         }
