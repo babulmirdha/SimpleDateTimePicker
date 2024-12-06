@@ -1,4 +1,4 @@
-package com.alorferi.date_picker_library
+package com.alorferi.simple_date_picker_library
 
 import android.os.Bundle
 import android.view.LayoutInflater

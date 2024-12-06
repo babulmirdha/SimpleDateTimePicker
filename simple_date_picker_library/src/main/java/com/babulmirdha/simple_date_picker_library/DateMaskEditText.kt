@@ -1,4 +1,4 @@
-package com.alorferi.date_picker_library
+package com.alorferi.simple_date_picker_library
 
 import android.graphics.Color
 import android.text.Editable
@@ -93,7 +93,7 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
 
     private fun showDatePickerDialog(activity: AppCompatActivity) {
         val hint = mDateEditText?.hint.toString()
-        DatePickerDialogFragment.newInstance(getDate(), mDatePickerTitle ).apply {
+        DatePickerDialogFragment.newInstance(getDate(), mDatePickerTitle).apply {
             setDatePickerListener(this@DateMaskEditText)
             show(activity.supportFragmentManager, "datePicker")
         }
