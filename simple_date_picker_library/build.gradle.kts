@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.alorferi.date_picker_library"
+    namespace = "com.babulmirdha.simple_date_picker_library"
     compileSdk = 34
 
     defaultConfig {
@@ -51,8 +51,8 @@ publishing {
 //run commend "./gradlew publishToMavenLocal" at terminal to publish library in local maven
     publications {
         create<MavenPublication>("maven") {
-            groupId = "com.alorferi"
-            artifactId = "date_picker_library"
+            groupId = "com.babulmirdha"
+            artifactId = "simple_date_picker_library"
             version = "1.0.0"
 
             // Include the Android AAR artifact

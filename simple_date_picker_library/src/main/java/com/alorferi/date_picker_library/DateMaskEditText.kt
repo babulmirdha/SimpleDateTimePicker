@@ -15,13 +15,19 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class EditTextDateMask : TextWatcher, DatePickerDialogFragment.OnDatePickerXListener {
+class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListener {
 
     private val mddMMyyyyDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
     private var current = ""
     private val ddmmyyyy = "DDMMYYYY"
     private val mCal = Calendar.getInstance()
     private var mDateEditText: EditText? = null
+
+    private var mPickDateListener: DatePickerDialogFragment.OnDatePickerListener? = null
+
+    fun setOnDatePickListener(listener: DatePickerDialogFragment.OnDatePickerListener){
+        mPickDateListener = listener
+    }
 
     constructor(dateEditText: EditText) {
         initEditText(dateEditText)
@@ -60,14 +66,14 @@ class EditTextDateMask : TextWatcher, DatePickerDialogFragment.OnDatePickerXList
 
     private fun showDatePickerDialog(fragment: Fragment) {
         DatePickerDialogFragment.newInstance(getDate()).apply {
-            setDatePickerListener(this@EditTextDateMask)
+            setDatePickerListener(this@DateMaskEditText)
             show(fragment.requireFragmentManager(), "datePicker")
         }
     }
 
     private fun showDatePickerDialog(activity: AppCompatActivity) {
         DatePickerDialogFragment.newInstance(getDate()).apply {
-            setDatePickerListener(this@EditTextDateMask)
+            setDatePickerListener(this@DateMaskEditText)
             show(activity.supportFragmentManager, "datePicker")
         }
     }
@@ -141,5 +147,6 @@ class EditTextDateMask : TextWatcher, DatePickerDialogFragment.OnDatePickerXList
 
     override fun onPickDate(date: Date?) {
         setDate(date)
+        mPickDateListener?.onPickDate(date)
     }
 }

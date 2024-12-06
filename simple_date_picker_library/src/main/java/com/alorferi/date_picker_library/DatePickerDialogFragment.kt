@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.alorferi.date_picker_library.databinding.FragmentDialogDatePickerBinding
+import com.babulmirdha.simple_date_picker_library.databinding.FragmentDialogDatePickerBinding
 
 
 import java.util.*
@@ -14,7 +14,7 @@ class DatePickerDialogFragment : DialogFragment() {
 
     private var mPlaceholderText: String? = null
     private var mDate: Date? = null
-    private var mListener: OnDatePickerXListener? = null
+    private var mListener: OnDatePickerListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +82,7 @@ class DatePickerDialogFragment : DialogFragment() {
         return DateTimeUtils.getDateFromDatePicker(mBinding.datePicker)
     }
 
-    fun setDatePickerListener(listener: OnDatePickerXListener) {
+    fun setDatePickerListener(listener: OnDatePickerListener) {
         mListener = listener
     }
 
@@ -100,9 +100,8 @@ class DatePickerDialogFragment : DialogFragment() {
         }
     }
 
-    interface OnDatePickerXListener {
+    interface OnDatePickerListener {
         fun onPickDate(date: Date?)
-//        val time: Date?
     }
 
 }
