@@ -1,4 +1,4 @@
-package com.alorferi.date_picker_library
+package com.alorferi.simple_date_picker_library
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
