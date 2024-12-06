@@ -25,7 +25,7 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
 
     private var mPickDateListener: DatePickerDialogFragment.OnDatePickerListener? = null
 
-    fun setOnDatePickListener(listener: DatePickerDialogFragment.OnDatePickerListener){
+    fun setOnDatePickListener(listener: DatePickerDialogFragment.OnDatePickerListener) {
         mPickDateListener = listener
     }
 
@@ -33,7 +33,12 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
         initEditText(dateEditText)
     }
 
-    constructor(fragment: Fragment?, dateEditText: EditText, datePickerButton: ImageButton?, date: Date? = null) {
+    constructor(
+        fragment: Fragment?,
+        dateEditText: EditText,
+        datePickerButton: ImageButton?,
+        date: Date? = null
+    ) {
         initEditText(dateEditText, date, fragment, datePickerButton)
     }
 
@@ -46,11 +51,21 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
         initEditText(dateEditText, date)
     }
 
-    constructor(activity: AppCompatActivity, dateEditText: EditText, datePickerButton: ImageButton?, date: Date) {
+    constructor(
+        activity: AppCompatActivity,
+        dateEditText: EditText,
+        datePickerButton: ImageButton?,
+        date: Date
+    ) {
         initEditText(dateEditText, date, activity, datePickerButton)
     }
 
-    private fun initEditText(dateEditText: EditText, date: Date? = null, fragmentOrActivity: Any? = null, datePickerButton: ImageButton? = null) {
+    private fun initEditText(
+        dateEditText: EditText,
+        date: Date? = null,
+        fragmentOrActivity: Any? = null,
+        datePickerButton: ImageButton? = null
+    ) {
         dateEditText.hint = "DD/MM/YYYY"
         this.mDateEditText = dateEditText
         this.mDateEditText?.addTextChangedListener(this)
@@ -65,14 +80,16 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
     }
 
     private fun showDatePickerDialog(fragment: Fragment) {
-        DatePickerDialogFragment.newInstance(getDate()).apply {
+        val hint = mDateEditText?.hint.toString()
+        DatePickerDialogFragment.newInstance(getDate(), hint).apply {
             setDatePickerListener(this@DateMaskEditText)
             show(fragment.requireFragmentManager(), "datePicker")
         }
     }
 
     private fun showDatePickerDialog(activity: AppCompatActivity) {
-        DatePickerDialogFragment.newInstance(getDate()).apply {
+        val hint = mDateEditText?.hint.toString()
+        DatePickerDialogFragment.newInstance(getDate(), hint).apply {
             setDatePickerListener(this@DateMaskEditText)
             show(activity.supportFragmentManager, "datePicker")
         }
@@ -98,7 +115,7 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
         clean = if (clean.length < 8) {
             clean + ddmmyyyy.substring(clean.length)
         } else {
-          val dtString = validateDate(clean)
+            val dtString = validateDate(clean)
             mPickDateListener?.onPickDate(getDate())
             dtString
         }
@@ -107,7 +124,12 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
         val sb = SpannableStringBuilder(current)
 
         if (sel <= current.length) {
-            sb.setSpan(ForegroundColorSpan(Color.parseColor("#808080")), sel, current.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            sb.setSpan(
+                ForegroundColorSpan(Color.parseColor("#808080")),
+                sel,
+                current.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
         mDateEditText?.let {
             it.text = sb
@@ -132,7 +154,13 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
     }
 
     private fun formatCleanString(clean: String): String {
-        return String.format(Locale.ENGLISH, "%s/%s/%s", clean.substring(0, 2), clean.substring(2, 4), clean.substring(4, 8))
+        return String.format(
+            Locale.ENGLISH,
+            "%s/%s/%s",
+            clean.substring(0, 2),
+            clean.substring(2, 4),
+            clean.substring(4, 8)
+        )
     }
 
     fun getDate(): Date? {
