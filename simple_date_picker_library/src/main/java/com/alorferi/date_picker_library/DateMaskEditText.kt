@@ -98,7 +98,9 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
         clean = if (clean.length < 8) {
             clean + ddmmyyyy.substring(clean.length)
         } else {
-            validateDate(clean)
+          val dtString = validateDate(clean)
+            mPickDateListener?.onPickDate(getDate())
+            dtString
         }
 
         current = formatCleanString(clean)
