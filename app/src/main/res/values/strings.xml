@@ -2,4 +2,5 @@
     <string name="app_name">SimpleDateTimePicker</string>
     <string name="select_date">Select date</string>
     <string name="dob">Date of birth</string>
+    <string name="select_date_2">Select date 2</string>
 </resources>
