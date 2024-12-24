@@ -56,15 +56,15 @@
             android:text="@string/dob"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/dob2TextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:hint="dd/mm/yyyy"
-            android:text=""
-            android:textSize="15sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/dob2TextView"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint="dd/mm/yyyy"-->
+<!--            android:text=""-->
+<!--            android:textSize="15sp" />-->
 
         <ImageButton
             android:id="@+id/dob2PickerButton"

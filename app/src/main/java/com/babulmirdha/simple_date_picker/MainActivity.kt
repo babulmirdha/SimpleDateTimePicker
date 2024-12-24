@@ -14,7 +14,7 @@ import java.util.Date
 class MainActivity : AppCompatActivity(), DatePickerDialogFragment.OnDatePickerListener {
 
     private lateinit var mCal: Calendar
-    private lateinit var mDob2EditTextDateMask: DateMaskEditText
+//    private lateinit var mDob2EditTextDateMask: DateMaskEditText
     private lateinit var binding: ActivityMainBinding
     private var mDob1EditTextDateMask: DateMaskEditText? = null
 
@@ -37,21 +37,21 @@ class MainActivity : AppCompatActivity(), DatePickerDialogFragment.OnDatePickerL
             this,
             binding.dobEditText,
             binding.dob1PickerButton,
-            mCal.time,
+            null,
             getString(R.string.select_date)
         )
 
         mDob1EditTextDateMask?.setOnDatePickListener(this)
 
-        mDob2EditTextDateMask = DateMaskEditText(
-            this,
-            binding.dob2TextView,
-            binding.dob2PickerButton,
-            mCal.time,
-            getString(R.string.select_date_2)
-        )
+//        mDob2EditTextDateMask = DateMaskEditText(
+//            this,
+//            binding.dob2TextView,
+//            binding.dob2PickerButton,
+//            mCal.time,
+//            getString(R.string.select_date_2)
+//        )
 
-        mDob2EditTextDateMask.setOnDatePickListener(this)
+//        mDob2EditTextDateMask.setOnDatePickListener(this)
     }
 
     override fun onPickDate(date: Date?) {
