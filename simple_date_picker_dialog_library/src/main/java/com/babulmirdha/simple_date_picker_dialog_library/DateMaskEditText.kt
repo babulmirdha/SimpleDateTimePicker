@@ -1,4 +1,4 @@
-package com.babulmirdha.simple_date_picker_library
+package com.babulmirdha.simple_date_picker_dialog_library
 
 import android.graphics.Color
 import android.text.Editable
@@ -105,6 +105,15 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
             when (fragmentOrActivity) {
                 is Fragment -> showDatePickerDialog(fragmentOrActivity)
                 is AppCompatActivity -> showDatePickerDialog(fragmentOrActivity)
+            }
+        }
+
+        mDateEditText?.setOnClickListener {
+            if(mDateEditText?.isEnabled==true){
+                when (fragmentOrActivity) {
+                    is Fragment -> showDatePickerDialog(fragmentOrActivity)
+                    is AppCompatActivity -> showDatePickerDialog(fragmentOrActivity)
+                }
             }
         }
     }

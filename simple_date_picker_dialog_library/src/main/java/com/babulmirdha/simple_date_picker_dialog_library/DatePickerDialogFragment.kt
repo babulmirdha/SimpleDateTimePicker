@@ -1,11 +1,14 @@
-package com.babulmirdha.simple_date_picker_library
+package com.babulmirdha.simple_date_picker_dialog_library
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
+import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
-import com.babulmirdha.simple_date_picker_library.databinding.FragmentDialogDatePickerBinding
+import com.babulmirdha.simple_date_picker_dialog_library.databinding.FragmentDialogDatePickerBinding
 
 
 import java.util.*
@@ -79,7 +82,32 @@ class DatePickerDialogFragment : DialogFragment() {
 
 
     private fun getDate(): Date? {
-        return DateTimeUtils.getDateFromDatePicker(mBinding.datePicker)
+        return getDateFromDatePicker(mBinding.datePicker)
+    }
+
+  private  fun getDateFromDatePicker(datePicker: DatePicker, timPicker: TimePicker?=null): Date? {
+        val day: Int = datePicker.dayOfMonth
+        val month: Int = datePicker.month
+        val year: Int = datePicker.year
+
+        val hour = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timPicker?.hour
+        } else {
+            timPicker?.currentHour
+        }
+        val minute = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timPicker?.minute
+        } else {
+            timPicker?.currentHour
+        }
+
+        val calendar = Calendar.getInstance()
+        calendar[year, month] = day
+
+        hour?.let { calendar.set(Calendar.HOUR_OF_DAY, it) }
+        minute?.let { calendar.set(Calendar.MINUTE, it) }
+
+        return calendar.time
     }
 
     fun setDatePickerListener(listener: OnDatePickerListener) {

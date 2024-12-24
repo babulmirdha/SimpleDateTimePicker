@@ -6,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.babulmirdha.simple_date_picker.databinding.ActivityMainBinding
-import com.babulmirdha.simple_date_picker_library.DateMaskEditText
-import com.babulmirdha.simple_date_picker_library.DatePickerDialogFragment
-import com.babulmirdha.simple_date_picker_library.DateTimeUtils
+import com.babulmirdha.simple_date_picker_dialog_library.DateMaskEditText
+import com.babulmirdha.simple_date_picker_dialog_library.DatePickerDialogFragment
 import java.util.Calendar
 import java.util.Date
 
