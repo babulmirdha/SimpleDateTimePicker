@@ -1,100 +1,13 @@
-package com.babulmirdha.simple_date_picker_library
+package com.babulmirdha.simple_date_picker
 
 import android.content.Context
-import android.os.Build
-import android.widget.DatePicker
-import android.widget.TimePicker
+import com.babulmirdha.simple_date_picker_dialog_library.R
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
 
 object DateTimeUtils {
-
-
-    fun getDifference(
-        context: Context?,
-        dateString: String?,
-        currentFormat: String = "yyyy-MM-dd",
-        showPastFuture: Boolean
-    ): String {
-
-        val simpleDateFormat = SimpleDateFormat(currentFormat)
-
-        try {
-            val date = simpleDateFormat.parse(dateString)
-            return getDifference(context, date, showPastFuture)
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-
-        return getDifference(context, Date(), showPastFuture)
-    }
-
-
-    fun getDateFromDatePicker(datePicker: DatePicker, timPicker:TimePicker?=null): Date? {
-        val day: Int = datePicker.dayOfMonth
-        val month: Int = datePicker.month
-        val year: Int = datePicker.year
-
-       val hour = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-           timPicker?.hour
-       } else {
-           timPicker?.currentHour
-       }
-        val minute = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            timPicker?.minute
-        } else {
-            timPicker?.currentHour
-        }
-
-        val calendar = Calendar.getInstance()
-        calendar[year, month] = day
-
-        hour?.let { calendar.set(Calendar.HOUR_OF_DAY, it) }
-        minute?.let { calendar.set(Calendar.MINUTE, it) }
-
-        return calendar.time
-    }
-
-    fun dateFromUTC(date: Date?): Date? {
-        if (date != null) {
-            return Date(date.time + Calendar.getInstance().timeZone.getOffset(Date().time))
-        }
-
-        return null
-    }
-
-    fun dateToUTC(date: Date?): Date? {
-        if (date != null) {
-            return Date(date.time - Calendar.getInstance().timeZone.getOffset(date.time))
-        }
-
-        return null
-    }
-
-    fun getDifference(
-        context: Context?,
-        startDate: String?,
-        endDate: String?,
-        dateFormat: String,
-        isShowPastFuture: Boolean = false
-    ): String {
-
-        return try {
-            val simpleDateFormat = SimpleDateFormat(dateFormat)
-
-            val startDT = simpleDateFormat.parse(startDate)
-            val endDT = simpleDateFormat.parse(endDate)
-
-            getDifference(context, startDT, endDT, isShowPastFuture)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            ""
-        }
-
-
-    }
 
 
     fun getDifference(
@@ -129,7 +42,9 @@ object DateTimeUtils {
                 val bnDays = days.toString() + ""
 
                 val isPastOrFuture = if (isShowPastFuture) {
-                    if (startDate?.let { isPassed(it) } == true) context?.getString(R.string.past) else context?.getString(R.string.future)
+                    if (startDate.let { isPassed(it) } == true) context?.getString(R.string.past) else context?.getString(
+                        R.string.future
+                    )
                 } else {
                     ""
                 }
@@ -170,61 +85,8 @@ object DateTimeUtils {
  return ""
     }
 
-    fun getDifference(context: Context?, date: Date?, showPastFuture: Boolean=false): String {
-        val calendar = Calendar.getInstance()
-        val currentTime = calendar.time
-
-        return getDifference(context, date, currentTime, showPastFuture)
-
-//        try {
-//            val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-//            val dateStr = simpleDateFormat.format(currentTime)
-//
-//            currentTime = simpleDateFormat.parse(dateStr)
-//        } catch (e: ParseException) {
-//            e.printStackTrace()
-//        }
-//
-//        val diff = Math.abs(currentTime.time - date.time)
-//        var diffDays = (diff / (24 * 60 * 60 * 1000)).toInt().toFloat()
-//
-//
-//        val years = diffDays.toInt() / 365
-//
-//        diffDays = diffDays % 365
-//
-//        val months = diffDays.toInt() / 30
-//
-//        diffDays = diffDays % 365
-//
-//        val days = (diffDays % 30).toInt()
-//
-//        val bnYears = years.toString() + ""
-//        val bnMonths = months.toString() + ""
-//        val bnDays = days.toString() + ""
-//
-//        val isPastOrFuture = if (isPassed(date)) "অতীত" else "বাকি"
-//        return if (years != 0) {
-//            String.format("%s বছর %s মাস %s দিন %s", bnYears, bnMonths, bnDays, isPastOrFuture)
-//        } else if (months != 0) {
-//            String.format("%s মাস %s দিন %s", bnMonths, bnDays, isPastOrFuture)
-//        } else {
-//            String.format("%s দিন %s", bnDays, isPastOrFuture)
-//        }
-
-    }
-
     fun isPassed(date: Date?): Boolean {
         return Date().time > date?.time!!
-    }
-
-    fun isPassed(dateTime: String?, dateFormat: String): Boolean {
-
-        val sdf = SimpleDateFormat(dateFormat)
-
-        val date = sdf.parse(dateTime)
-
-        return Date().time > date.time
     }
 
     fun formatDate(date: Date?, expectedFormat: String, lang: Lang = Lang.en): String? {

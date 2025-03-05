@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.babulmirdha.simple_date_picker_library"
+    namespace = "com.babulmirdha.simple_date_picker_dialog_library"
     compileSdk = 34
 
     defaultConfig {
@@ -52,7 +52,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.babulmirdha"
-            artifactId = "simple_date_picker_library"
+            artifactId = "simple_date_picker_dialog_library"
             version = "1.0.0"
 
             // Include the Android AAR artifact

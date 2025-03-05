@@ -1,4 +1,4 @@
-package com.babulmirdha.simple_date_picker_library
+package com.babulmirdha.simple_date_picker_dialog_library
 
 import android.graphics.Color
 import android.text.Editable
@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import java.text.SimpleDateFormat
@@ -23,6 +24,7 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
     private val ddmmyyyy = "DDMMYYYY"
     private val mCal = Calendar.getInstance()
     private var mDateEditText: EditText? = null
+//    private var mDateTextView: TextView? = null
 
     private var mPickDateListener: DatePickerDialogFragment.OnDatePickerListener? = null
 
@@ -56,11 +58,34 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
         activity: AppCompatActivity,
         dateEditText: EditText,
         datePickerButton: ImageButton?,
-        date: Date,
+        date: Date?,
         datePickerTitle:String? = null
     ) {
         initEditText(dateEditText, date, activity, datePickerButton, datePickerTitle)
     }
+
+//    constructor(
+//        activity: AppCompatActivity,
+//        dateTextView: TextView,
+//        datePickerButton: ImageButton?,
+//        date: Date,
+//        datePickerTitle:String? = null
+//    ) {
+//        dateTextView.hint = "DD/MM/YYYY"
+//        this.mDateTextView = dateTextView
+//
+//        date.let { this.mDateTextView?.setText(mddMMyyyyDateFormat.format(date)) }
+//
+//        this.mDatePickerTitle = datePickerTitle
+//
+//        mDateTextView?.setOnClickListener {
+//            showDatePickerDialog(activity)
+//        }
+//
+//        datePickerButton?.setOnClickListener {
+//            showDatePickerDialog(activity)
+//        }
+//    }
 
     private fun initEditText(
         dateEditText: EditText,
@@ -69,7 +94,7 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
         datePickerButton: ImageButton? = null,
         datePickerTitle:String? = null
     ) {
-        dateEditText.hint = "DD/MM/YYYY"
+//        dateEditText.hint = "DD/MM/YYYY"
         this.mDateEditText = dateEditText
         this.mDateEditText?.addTextChangedListener(this)
         date?.let { this.mDateEditText?.setText(mddMMyyyyDateFormat.format(date)) }
@@ -82,6 +107,15 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
                 is AppCompatActivity -> showDatePickerDialog(fragmentOrActivity)
             }
         }
+
+        mDateEditText?.setOnClickListener {
+            if(mDateEditText?.isEnabled==true){
+                when (fragmentOrActivity) {
+                    is Fragment -> showDatePickerDialog(fragmentOrActivity)
+                    is AppCompatActivity -> showDatePickerDialog(fragmentOrActivity)
+                }
+            }
+        }
     }
 
     private fun showDatePickerDialog(fragment: Fragment) {
@@ -92,7 +126,6 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
     }
 
     private fun showDatePickerDialog(activity: AppCompatActivity) {
-        val hint = mDateEditText?.hint.toString()
         DatePickerDialogFragment.newInstance(getDate(), mDatePickerTitle).apply {
             setDatePickerListener(this@DateMaskEditText)
             show(activity.supportFragmentManager, "datePicker")
@@ -176,7 +209,9 @@ class DateMaskEditText : TextWatcher, DatePickerDialogFragment.OnDatePickerListe
     }
 
     fun setDate(date: Date?) {
-        date?.let { mDateEditText?.setText(mddMMyyyyDateFormat.format(it)) }
+        date?.let {
+            mDateEditText?.setText(mddMMyyyyDateFormat.format(it))
+        }
     }
 
     override fun onPickDate(date: Date?) {

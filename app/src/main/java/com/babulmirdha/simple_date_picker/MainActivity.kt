@@ -6,17 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.babulmirdha.simple_date_picker.databinding.ActivityMainBinding
-import com.babulmirdha.simple_date_picker_library.DateMaskEditText
-import com.babulmirdha.simple_date_picker_library.DatePickerDialogFragment
-import com.babulmirdha.simple_date_picker_library.DateTimeUtils
+import com.babulmirdha.simple_date_picker_dialog_library.DateMaskEditText
+import com.babulmirdha.simple_date_picker_dialog_library.DatePickerDialogFragment
 import java.util.Calendar
 import java.util.Date
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DatePickerDialogFragment.OnDatePickerListener {
 
-
+    private lateinit var mCal: Calendar
+//    private lateinit var mDob2EditTextDateMask: DateMaskEditText
     private lateinit var binding: ActivityMainBinding
-    private var mDobEditTextDateMask: DateMaskEditText? = null
+    private var mDob1EditTextDateMask: DateMaskEditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,21 +32,30 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val cal = Calendar.getInstance()
-        mDobEditTextDateMask = DateMaskEditText(
+        mCal = Calendar.getInstance()
+        mDob1EditTextDateMask = DateMaskEditText(
             this,
             binding.dobEditText,
-            binding.datePickerButton,
-            cal.time,
+            binding.dob1PickerButton,
+            null,
             getString(R.string.select_date)
         )
 
-        mDobEditTextDateMask?.setOnDatePickListener(object :
-            DatePickerDialogFragment.OnDatePickerListener {
-            override fun onPickDate(date: Date?) {
-                 binding.resultTextView.text =  DateTimeUtils.getDifference(this@MainActivity,date,cal.time)
-            }
-        })
+        mDob1EditTextDateMask?.setOnDatePickListener(this)
+
+//        mDob2EditTextDateMask = DateMaskEditText(
+//            this,
+//            binding.dob2TextView,
+//            binding.dob2PickerButton,
+//            mCal.time,
+//            getString(R.string.select_date_2)
+//        )
+
+//        mDob2EditTextDateMask.setOnDatePickListener(this)
+    }
+
+    override fun onPickDate(date: Date?) {
+        binding.resultTextView.text = DateTimeUtils.getDifference(this@MainActivity, date, mCal.time)
     }
 
 }
